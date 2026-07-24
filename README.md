@@ -1,62 +1,71 @@
-# 🏦 نظام إدارة الخدمات البنكية الإلكتروني (Bank Management System)
+🏦 Bank Customer Service Management System
 
-> **مشروع إلكتروني بلغة C يطبق أحدث مفاهيم هياكل البيانات وإدارة الذاكرة الديناميكية لتقديم محاكاة واقعية لنظام خدمة العملاء.**
+«A complete Data Structures project written in C that simulates a real-world bank customer service system using Queue, Stack, Dynamic Memory Allocation, File Handling, and Undo functionality.»
 
 ---
 
 <details>
-<summary>🎯 <b>عن المشروع (Overview)</b></summary>
+<summary>🎯 <b>Overview</b></summary><br>This project is a Command-Line Interface (CLI) application that simulates how customers are managed inside a bank. The system organizes customers using a Queue, records completed services inside a Stack to support Undo, and permanently stores customer data in text files.
 
-<br>
+The project focuses on applying core Data Structures concepts together with Dynamic Memory Management and File Handling in a realistic software scenario.
 
-تطبيق تفاعلي عبر السطر البرمجي (CLI) يُحاكي إدارة خدمة العملاء في البنك. يعتمد التطبيق على تنظيم المراجعين في طابور محدد، وتسجيل العمليات المكتملة لإمكانية التراجع عنها، مع حفظ البيانات دائماً في الملفات النصية.
-</details>
-
-<details>
-<summary>✨ <b>المميزات الرئيسية (Key Features)</b></summary>
-
-<br>
-
-* 🎟️ **تنظيم الدور:** إدارة أسبقية الدخول باستخدام الطابور (**Queue**).
-* 🔄 **خاصية التراجع (Undo):** إمكانية إلغاء آخر خدمة وإعادة العميل لمقدمة الطابور باستخدام المكدس (**Stack**).
-* 🔍 **البحث الخطي (Linear Search):** البحث عن بيانات العميل بواسطة **الرقم التعريفي (ID)** أو **الاسم**.
-* 📁 **التخزين الدائم (File Persistence):** حفظ وقراءة بيانات العملاء تلقائياً في ملف `customers.txt`.
-* 🧹 **الحماية من تسريب الذاكرة (Memory Safety):** نظام تنظيف تلقائي يحدد حجم الذاكرة المستهلكة.
-</details>
+</details>---
 
 <details>
-<summary>🧩 <b>هياكل البيانات والتقنيات (Data Structures)</b></summary>
+<summary>✨ <b>Key Features</b></summary><br>- 🎟️ Queue Management – Organize customers based on the FIFO (First-In, First-Out) principle.
+- 🔄 Undo Operation – Restore the last served customer back to the front of the queue using a Stack (LIFO).
+- 🔍 Linear Search – Search for customers by ID or Name.
+- 📁 Persistent Storage – Automatically save and load customer data using "customers.txt".
+- 🧹 Memory Safety – Efficient memory management with automatic cleanup to prevent memory leaks.
 
-<br>
-
-| الهيكل | التقنية المستخدمة | النمط | الغرض في النظام |
-| :--- | :--- | :--- | :--- |
-| **Queue** 🎟️ | Linked List | **FIFO** (First-In, First-Out) | تنظيم أدوار العملاء المنتظرين. |
-| **Stack** 🥞 | Linked List | **LIFO** (Last-In, First-Out) | احتفاظ بالعمليات المكتملة لخاصية الـ Undo. |
-| **Files** 📁 | I/O File Streams | **Persistent Storage** | حفظ البيانات المعتمدة في ملف نصي خارجي. |
-</details>
+</details>---
 
 <details>
-<summary>⚡ <b>إدارة الذاكرة والتحسين البرمجي (Memory Optimization)</b></summary>
+<summary>🧩 <b>Data Structures & Technologies</b></summary><br>Data Structure| Implementation| Principle| Purpose
+🎟️ Queue| Linked List| FIFO| Manage waiting customers
+🥞 Stack| Linked List| LIFO| Store completed services for Undo
+📁 Files| File I/O| Persistent Storage| Save customer records permanently
 
-<br>
-
-1. **إعادة استخدام العقد (Node Reuse):**
-   * عند نقل العميل من الطابور إلى المكدس (أو العكس عند التراجع)، يتم نقل مؤشر العقدة (`Node*`) مباشرة دون الحاجة لحذفها بـ `free()` ثم إعادة حجزها بـ `malloc()`. هذا يعزز الأداء ويقلل استهلاك الذاكرة.
-
-2. **الحد الأقصى لحجم المكدس (Stack Limit & Auto-Cleanup):**
-   * يحتوي المكدس على عداد ذكي (`count`). عند تجاوز عدد العمليات المسجلة **20 عملية**، يقوم النظام تلقائياً بتحرير ذاكرة أقدم عقدة في الأسفل لمنع تضخم الذاكرة (**Memory Leak Prevention**).
-</details>
+</details>---
 
 <details>
-<summary>📁 <b>هيكل الملفات (Project Structure)</b></summary>
+<summary>⚡ <b>Memory Management & Optimization</b></summary><br>🔹 Node Reuse
 
-<br>
+Instead of freeing and reallocating memory, the system transfers the existing "Node*" directly between the Queue and Stack, improving performance and reducing unnecessary memory allocations.
 
-```text
-bank-system/
-├── bank.h        # الهياكل والإعلانات عن الدوال (Header File)
-├── ds.c          # عمليات الطابور والمكدس والعقد (Data Structures)
-├── files.c       # عمليات التخزين والبحث في الملفات (File I/O)
-├── main.c        # القائمة التفاعلية ونقطة انطلاق البرنامج (Main Logic)
-└── README.md     # الوصف والتاريخ التوثيقي للمشروع
+🔹 Stack Size Limitation
+
+The Undo Stack maintains a maximum of 20 records.
+
+When the limit is exceeded, the oldest node is automatically removed and its memory is released to prevent uncontrolled memory growth.
+
+</details>---
+
+<details>
+<summary>📂 <b>Project Structure</b></summary><br>bank-system/
+├── bank.h        # Data structures and function declarations
+├── ds.c          # Queue, Stack, and Linked List implementation
+├── files.c       # File handling and searching operations
+├── main.c        # Main program and interactive menu
+└── README.md     # Project documentation
+
+</details>---
+
+<details>
+<summary>🎓 <b>Educational Purpose</b></summary><br>This project was developed as an educational practice project to strengthen practical knowledge of Data Structures in C.
+
+It demonstrates the use of:
+
+- Pointers
+- Linked Lists
+- Queue
+- Stack
+- Dynamic Memory Allocation ("malloc", "free")
+- File Handling
+- Memory Optimization
+- Algorithm Design
+- Modular Programming
+
+The goal is to simulate a realistic banking service system while following clean programming practices and efficient memory management.
+
+</details>
