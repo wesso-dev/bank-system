@@ -25,6 +25,7 @@ void init_queue(Queue *q) {
 
 void init_stack(Stack *s) {
     s->top = NULL; 
+    s->count = 0; // ⚙️ تهيئة عداد العناصر داخل المكدس
 } 
 
 // إضافة عميل لآخر الطابور 🎟️
@@ -54,10 +55,31 @@ Node *dequeue(Queue *q) {
     return temp; 
 }
 
-// إضافة عميل لأعلى المكدس 🥞
+// إضافة عميل لأعلى المكدس مع إدارة حجم الذاكرة 🥞
 void push(Stack *s, Node *newNode) {
+    if (newNode == NULL) return;
+
     newNode->next = s->top;
     s->top = newNode;
+    s->count++; // زيادة العداد
+
+    // 🧹 شرط حماية الذاكرة: لو المكدس زاد عن 20 عنصر بنحذف أقدم عنصر في القاع
+    if (s->count > 20) {
+        Node *current = s->top;
+        
+        // المرور حتى العقدة ما قبل الأخيرة
+        while (current->next != NULL && current->next->next != NULL) {
+            current = current->next;
+        }
+
+        if (current->next != NULL) {
+            Node *oldestNode = current->next;
+            current->next = NULL;
+            free(oldestNode); // 🧹 تحرير الذاكرة
+            s->count = 20;
+            printf("🧹 تنظيف تلقائي: تم تحرير أقدم عملية متراجَع عنها لعدم تجاوز 20 عنصرًا.\n");
+        }
+    }
 }
 
 // سحب عميل من أعلى المكدس 🔄
@@ -68,6 +90,9 @@ Node *pop(Stack *s) {
 
     Node *temp = s->top; 
     s->top = s->top->next; 
+    temp->next = NULL; // فصل العقدة
+    s->count--;        // تقليل العداد عند السحب
+    
     return temp; 
 }
 
