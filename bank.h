@@ -31,5 +31,7 @@ Node *dequeue(Queue *q);
 void push(Stack *s, Node *newNode);
 Node *pop(Stack *s);
 void enqueue_at_front(Queue *q, Node *newNode);
-
+void saveCustomerToFile(int id, const char *name, const char *problem);
+void searchByIdInFile(int searchId);
+void searchByNameInFile(const char *searchName);
 #endif
