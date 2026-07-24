@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-// 1. تعريف هياكل البيانات (Structs) 🏗️
+
 typedef struct Node {
     int id;
     char name[50];
@@ -23,7 +23,7 @@ typedef struct Stack {
     int count;
 } Stack;
 
-// 2. الإعلان عن دوال هياكل البيانات 📜
+
 Node *createNode(int id, const char *name, const char *problem);
 void init_queue(Queue *q);
 void init_stack(Stack *s);
