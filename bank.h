@@ -20,6 +20,7 @@ typedef struct Queue {
 
 typedef struct Stack {
     Node *top;
+    int count;
 } Stack;
 
 // 2. الإعلان عن دوال هياكل البيانات 📜
