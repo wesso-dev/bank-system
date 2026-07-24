@@ -1,6 +1,6 @@
 #include "bank.h"
 
-// 1. دالة حفظ بيانات العميل في الملف 💾
+
 void saveCustomerToFile(int id, const char *name, const char *problem) {
     FILE *fp = fopen("customers.txt", "a"); // "a" للإضافة في نهاية الملف
     if (fp == NULL) {
@@ -12,11 +12,11 @@ void saveCustomerToFile(int id, const char *name, const char *problem) {
     printf("💾 تم حفظ العميل [%s] في الملف النصي بنجاح.\n", name);
 }
 
-// 2. دالة البحث الخطي برقم الـ ID 🆔
+//  🆔
 void searchByIdInFile(int searchId) {
     FILE *fp = fopen("customers.txt", "r");
     if (fp == NULL) {
-        printf("⚠️ لا يوجد ملف بيانات للبحث فيه حالياً!\n");
+        printf(" لا يوجد ملف بيانات للبحث فيه حالياً!\n");
         return;
     }
 
@@ -27,7 +27,7 @@ void searchByIdInFile(int searchId) {
     while (fscanf(fp, "%d,%49[^,],%99[^\n]\n", &id, name, problem) != EOF) {
         if (id == searchId) {
             printf("\n🔍 **تم العثور على العميل:**\n");
-            printf("🆔 الرقم التعريفي: %d\n👤 الاسم: %s\n📝 الخدمة: %s\n", id, name, problem);
+            printf("🆔 الرقم التعريفي: %d\n👤 الاسم: %s\n الخدمة: %s\n", id, name, problem);
             found = 1;
             break;
         }
@@ -37,11 +37,11 @@ void searchByIdInFile(int searchId) {
     fclose(fp);
 }
 
-// 3. دالة البحث الخطي بالاسم 👤
+
 void searchByNameInFile(const char *searchName) {
     FILE *fp = fopen("customers.txt", "r");
     if (fp == NULL) {
-        printf("⚠️ لا يوجد ملف بيانات للبحث فيه حالياً!\n");
+        printf(" لا يوجد ملف بيانات للبحث فيه حالياً!\n");
         return;
     }
 
